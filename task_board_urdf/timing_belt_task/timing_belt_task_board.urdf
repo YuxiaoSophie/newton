@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot name="task_board">
+  <link name="board">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="timing_belt_task_board.obj"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.192 0.192 -0.005" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.384 0.384 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="small_timing_pulley">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.3"/>
+      <inertia ixx="3.06677e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" 
+               iyy="3.0667375e-05" iyz="-1.9003215e-11" 
+               izz="6.0454911e-05"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0.348 0.058 0.041" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="timing_belt_small_pulley.obj"/>
+      </geometry>
+      <material name="small_pulley_grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0.348 0.058 0.025" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.02505" length="0.027"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.348 0.058 0.03975" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0275" length="0.0025"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.348 0.058 0.01025" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0275" length="0.0025"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.348 0.058 0.045" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.005" length="0.006"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="large_timing_pulley">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="3.06677e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" 
+               iyy="3.0667375e-05" iyz="-1.9003215e-11" 
+               izz="6.0454911e-05"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0.134 0.058 0.043" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="timing_belt_large_pulley.obj"/>
+      </geometry>
+      <material name="large_pulley_grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0.134 0.058 0.027" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.047325" length="0.027"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.134 0.058 0.04175" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0495" length="0.0025"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.134 0.058 0.01225" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0495" length="0.0025"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.134 0.058 0.047" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.005" length="0.006"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="small_timing_pulley_joint" type="fixed">
+    <parent link="board"/>
+    <child link="small_timing_pulley"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="large_timing_pulley_joint" type="fixed">
+    <parent link="board"/>
+    <child link="large_timing_pulley"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>

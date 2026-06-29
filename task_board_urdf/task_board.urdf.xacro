@@ -1,0 +1,536 @@
+<?xml version="1.0" ?>
+<robot name="task_board" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="load_round_belt_pulleys" default="false" />
+  <xacro:arg name="load_timing_belt_pulleys" default="false" />
+  <xacro:arg name="load_bike_chain_pulleys" default="false" />
+
+  <!-- board side length is .384m -->
+
+  <link name="board">
+    <visual name="board">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="common/task_board_just_board.glb" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision name="board_collision">
+      <origin xyz="0.192 0.192 -0.005" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.384 0.384 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Bike Chain Pulleys -->
+  <xacro:if value="$(arg load_bike_chain_pulleys)">
+    <joint name="chain_tensioner_bracket_joint" type="fixed">
+      <parent link="board" />
+      <child link="chain_tensioner_bracket" />
+      <!-- <origin xyz="0.2395 0.347 0.020425" rpy="0 0 ${pi/2}" /> -->
+      <!-- .065 .0325-->
+      <!-- .311427 -->
+      <origin xyz="0.2395 0.343927 0.006" rpy="0 0 ${pi/2}" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="100" />
+    </joint>
+    <link name="chain_tensioner_bracket">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bracket.gltf" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bracket.gltf" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+    <joint name="chain_tensioner_slide_joint" type="fixed">
+      <parent link="chain_tensioner_bracket" />
+      <child link="chain_tensioner_slide" />
+      <origin xyz="-0.021 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="100" />
+    </joint>
+    <!-- dummy link -->
+    <link name="chain_tensioner_slide">
+    </link>
+    <joint name="chain_tensioner_joint" type="prismatic">
+    <!-- .062 slide limit -->
+      <parent link="chain_tensioner_slide" />
+      <child link="chain_tensioner_sprocket" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit lower="0" upper="0.04" effort="100" velocity="100" />
+    </joint>
+    <link name="chain_tensioner_sprocket">
+      <visual>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bolt.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <visual>
+        <origin xyz="0 0 .015" rpy="0 ${-pi/2} 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bearing.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <visual>
+        <origin xyz="0 0 0.012" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_sprocket.obj" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0.012" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_sprocket.obj" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </collision>
+      <collision>
+        <origin xyz="0 0 .015" rpy="0 ${-pi/2} 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bearing.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </collision>
+      <collision>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bolt.gltf" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+    <joint name="chain_small_sprocket_joint" type="fixed">
+      <parent link="board" />
+      <child link="chain_small_sprocket" />
+      <!-- <origin xyz="0.054 0.073 0.020" rpy="0 0 0" /> -->
+      <origin xyz="0.33 0.311 0.020" rpy="0 0 0" />
+    </joint>
+    <link name="chain_small_sprocket">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/small_sprocket.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/small_sprocket.obj" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+    <joint name="chain_large_sprocket_joint" type="fixed">
+      <parent link="board" />
+      <child link="chain_large_sprocket" />
+      <!-- <origin xyz="0.384 - 0.234 0.073 0.023" rpy="0 0 0" /> -->
+      <origin xyz="0.15 0.311 0.023" rpy="0 0 0" />
+    </joint>
+    <link name="chain_large_sprocket">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/large_sprocket.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/large_sprocket.obj" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+  </xacro:if>
+
+  <!-- Round Belt Pulleys -->
+  <xacro:if value="$(arg load_round_belt_pulleys)">
+    <!-- bracket mounting length in y is .033m, in x is .028m-->
+    <!-- task board edge to bracket closest mounting hole center in y is .1799m, in x is .3373m-->
+    <joint name="small_round_pulley_bracket_joint" type="fixed">
+      <parent link="board"/>
+      <child link="small_round_pulley_bracket"/>
+      <origin xyz="0.3504 0.1964 0" rpy="0 0 0"/>
+    </joint>
+    <link name="small_round_pulley_bracket">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>
+        <inertia ixx="3.06677e-05" iyy="3.0667375e-05" izz="6.0454911e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" iyz="-1.9003215e-11"/>
+      </inertial>
+      <visual name="bracket_visual">
+        <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/slide_tensioner_bracket.gltf"/>
+        </geometry>
+        <material name="dark_grey">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <collision name="bracket_collision">
+        <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/slide_tensioner_bracket.gltf"/>
+        </geometry>
+      </collision>
+    </link>
+    <!-- x distance from edge of board to closest part of bracket 0.33839155m -->
+    <!-- bracket sliding distance is .025m -->
+      <!-- <origin xyz="0.355 0.196 0.0248" rpy="0 0 0"/> -->
+      <!-- <origin xyz="0.33839155 0.196 0.0248" rpy="0 0 0"/> -->
+    <joint name="small_round_pulley_slide_joint" type="fixed">
+      <parent link="small_round_pulley_bracket"/>
+      <child link="small_round_pulley_slide"/>
+      <!-- <origin xyz="-0.01200845 -0.0004 0.0248" rpy="0 0 0"/> -->
+      <origin xyz="-0.01200845 -0.0004 0.0248" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="0" upper="0.025" effort="10" velocity="1"/>
+    </joint>
+    <!-- insert dummy link for slide  -->
+    <link name="small_round_pulley_slide">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>
+        <inertia ixx="3.06677e-05" iyy="3.0667375e-05" izz="6.0454911e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" iyz="-1.9003215e-11"/>
+      </inertial>
+    </link>
+    <joint name="small_round_pulley_joint" type="prismatic">
+      <parent link="small_round_pulley_slide"/>
+      <child link="small_round_pulley"/>
+      <!-- <origin xyz="-0.01200845 -0.0004 0.0248" rpy="0 0 0"/> -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="0" upper="0.025" effort="10" velocity="1"/>
+    </joint>
+    <link name="small_round_pulley">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>
+        <inertia ixx="3.06677e-05" iyy="3.0667375e-05" izz="6.0454911e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" iyz="-1.9003215e-11"/>
+      </inertial>
+      <visual name="bearing_visual">
+        <origin xyz="0 0 0.0035" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/slide_tensioner_bearing.gltf"/>
+        </geometry>
+        <material name="dark_grey">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <visual name="bolt_visual">
+        <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/slide_tensioner_bolt.gltf"/>
+        </geometry>
+        <material name="dark_grey">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <!-- <collision name="bearing_collision">
+        <origin xyz="0 0 -0.0035" rpy="0 -${pi/2} 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/slide_tensioner_bearing.gltf"/>
+        </geometry>
+      </collision> -->
+      <visual name="first_half">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/small_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="white">
+          <color rgba="0.8 0.8 0.8 1"/>
+        </material>
+      </visual>
+      <!-- <collision name="first_half_volume">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/small_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision> -->
+      <visual name="second_half">
+        <origin xyz="0 0 0" rpy="${pi} 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/small_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="white">
+          <color rgba="0.8 0.8 0.8 1"/>
+        </material>
+      </visual>
+      <!-- <collision name="second_half_volume">
+        <origin xyz="0 0 0" rpy="${pi} 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/small_round_pulley/small_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision> -->
+      <collision name="small_round_pulley_simple_collision">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.015" length="0.009"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="large_round_pulley_joint" type="fixed">
+      <parent link="board"/>
+      <child link="large_round_pulley"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <link name="large_round_pulley">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>
+        <inertia ixx="3.06677e-05" iyy="3.0667375e-05" izz="6.0454911e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" iyz="-1.9003215e-11"/>
+      </inertial>
+      <visual name="first_half">
+        <origin xyz="0.140 0.196 0.0248" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/large_round_pulley/large_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="dark_grey">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <collision name="first_half_volume">
+        <origin xyz="0.140 0.196 0.0248" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/large_round_pulley/large_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+      <visual name="second_half">
+        <origin xyz="0.140 0.196 0.0248" rpy="${pi} 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/large_round_pulley/large_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="dark_grey">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <collision name="second_half_volume">
+        <origin xyz="0.140 0.196 0.0248" rpy="${pi} 0 0"/>
+        <geometry>
+          <mesh filename="round_belt_task/round_belt_task_board/large_round_pulley/large_round_pulley_half.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:if>
+
+  <!-- Timing Belt Pulleys -->
+  <xacro:if value="$(arg load_timing_belt_pulleys)">
+    <link name="small_timing_pulley">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="3.06677e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" 
+                 iyy="3.0667375e-05" iyz="-1.9003215e-11" 
+                 izz="6.0454911e-05"/>
+      </inertial>
+      
+      <visual>
+        <origin xyz="0.348 0.058 0.041" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="timing_belt_task/timing_belt_small_pulley.obj"/>
+        </geometry>
+        <material name="small_pulley_grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0.348 0.058 0.025" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.02505" length="0.027"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.348 0.058 0.03975" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0275" length="0.0025"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.348 0.058 0.01025" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0275" length="0.0025"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.348 0.058 0.045" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.005" length="0.006"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="large_timing_pulley">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="3.06677e-05" ixy="5.7518697e-14" ixz="1.6724428e-11" 
+                 iyy="3.0667375e-05" iyz="-1.9003215e-11" 
+                 izz="6.0454911e-05"/>
+      </inertial>
+
+      <visual>
+        <origin xyz="0.134 0.058 0.043" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="timing_belt_task/timing_belt_large_pulley.obj"/>
+        </geometry>
+        <material name="large_pulley_grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0.134 0.058 0.027" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.047325" length="0.027"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.134 0.058 0.04175" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0495" length="0.0025"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.134 0.058 0.01225" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0495" length="0.0025"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.134 0.058 0.047" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.005" length="0.006"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="small_timing_pulley_joint" type="fixed">
+      <parent link="board"/>
+      <child link="small_timing_pulley"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="large_timing_pulley_joint" type="fixed">
+      <parent link="board"/>
+      <child link="large_timing_pulley"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="timing_belt_tensioner_joint" type="fixed">
+      <parent link="board" />
+      <child link="timing_belt_tensioner" />
+      <origin xyz="0.315 0.112 0" rpy="0 0 ${33*pi/50}" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="100" />
+    </joint>
+    <link name="timing_belt_tensioner">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_base.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_base.gltf" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+    <joint name="timing_belt_tensioner_arm_joint" type="revolute">
+      <parent link="timing_belt_tensioner" />
+      <child link="timing_belt_tensioner_arm" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="100" />
+    </joint>
+    <link name="timing_belt_tensioner_arm">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_arm.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <visual>
+        <origin xyz="0 0.08 0.04492" rpy="${-pi/2} 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_rotary.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_arm.gltf" />
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0.08 0.04492" rpy="${-pi/2} 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_rotary.gltf" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+  </xacro:if>
+
+</robot>

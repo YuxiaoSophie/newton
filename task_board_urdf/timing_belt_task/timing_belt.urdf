@@ -1,0 +1,3312 @@
+<?xml version="1.0"?>
+<robot name="timing_belt">
+
+  <link name="rod_0">
+    <inertial>
+      <origin xyz="0.00225 0 0" rpy="0 0 0"/>
+      <mass value="0.0005"/>
+      <inertia ixx="2.6243333333333338e-08" ixy="0" ixz="0" 
+               iyy="2.688541666666667e-08" iyz="0" 
+               izz="1.0454166666666666e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.00225 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0045 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_0">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00225 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0045 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="dummy_0_1"/>
+
+
+  <link name="rod_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_1">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_0_yaw" type="revolute">
+    <parent link="rod_0"/>
+    <child link="dummy_0_1"/>
+    <origin xyz="0.009920 0.001003 0.000000" rpy="0.000000 0.000000 0.200333"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_0_roll" type="revolute">
+    <parent link="dummy_0_1"/>
+    <child link="rod_1"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_1_2"/>
+
+
+  <link name="rod_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_2">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_1_yaw" type="revolute">
+    <parent link="rod_1"/>
+    <child link="dummy_1_2"/>
+    <origin xyz="0.009927 0.000945 0.000000" rpy="0.000000 0.000000 0.186647"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_1_roll" type="revolute">
+    <parent link="dummy_1_2"/>
+    <child link="rod_2"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_2_3"/>
+
+
+  <link name="rod_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_3">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_2_yaw" type="revolute">
+    <parent link="rod_2"/>
+    <child link="dummy_2_3"/>
+    <origin xyz="0.009940 0.000841 0.000000" rpy="0.000000 0.000000 0.164954"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_2_roll" type="revolute">
+    <parent link="dummy_2_3"/>
+    <child link="rod_3"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_3_4"/>
+
+
+  <link name="rod_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_4">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_3_yaw" type="revolute">
+    <parent link="rod_3"/>
+    <child link="dummy_3_4"/>
+    <origin xyz="0.009952 0.000725 0.000000" rpy="0.000000 0.000000 0.141725"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_3_roll" type="revolute">
+    <parent link="dummy_3_4"/>
+    <child link="rod_4"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_4_5"/>
+
+
+  <link name="rod_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_5">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_4_yaw" type="revolute">
+    <parent link="rod_4"/>
+    <child link="dummy_4_5"/>
+    <origin xyz="0.009962 0.000619 0.000000" rpy="0.000000 0.000000 0.120830"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_4_roll" type="revolute">
+    <parent link="dummy_4_5"/>
+    <child link="rod_5"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_5_6"/>
+
+
+  <link name="rod_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_6">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_5_yaw" type="revolute">
+    <parent link="rod_5"/>
+    <child link="dummy_5_6"/>
+    <origin xyz="0.009968 0.000529 0.000000" rpy="0.000000 0.000000 0.103561"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_5_roll" type="revolute">
+    <parent link="dummy_5_6"/>
+    <child link="rod_6"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_6_7"/>
+
+
+  <link name="rod_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_7">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_6_yaw" type="revolute">
+    <parent link="rod_6"/>
+    <child link="dummy_6_7"/>
+    <origin xyz="0.009973 0.000458 0.000000" rpy="0.000000 0.000000 0.089834"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_6_roll" type="revolute">
+    <parent link="dummy_6_7"/>
+    <child link="rod_7"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_7_8"/>
+
+
+  <link name="rod_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_8">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_7_yaw" type="revolute">
+    <parent link="rod_7"/>
+    <child link="dummy_7_8"/>
+    <origin xyz="0.009976 0.000403 0.000000" rpy="0.000000 0.000000 0.079095"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_7_roll" type="revolute">
+    <parent link="dummy_7_8"/>
+    <child link="rod_8"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_8_9"/>
+
+
+  <link name="rod_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_9">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_8_yaw" type="revolute">
+    <parent link="rod_8"/>
+    <child link="dummy_8_9"/>
+    <origin xyz="0.009978 0.000359 0.000000" rpy="0.000000 0.000000 0.070735"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_8_roll" type="revolute">
+    <parent link="dummy_8_9"/>
+    <child link="rod_9"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_9_10"/>
+
+
+  <link name="rod_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_10">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_9_yaw" type="revolute">
+    <parent link="rod_9"/>
+    <child link="dummy_9_10"/>
+    <origin xyz="0.009980 0.000325 0.000000" rpy="0.000000 0.000000 0.064236"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_9_roll" type="revolute">
+    <parent link="dummy_9_10"/>
+    <child link="rod_10"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_10_11"/>
+
+
+  <link name="rod_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_11">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_10_yaw" type="revolute">
+    <parent link="rod_10"/>
+    <child link="dummy_10_11"/>
+    <origin xyz="0.009981 0.000299 0.000000" rpy="0.000000 0.000000 0.059193"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_10_roll" type="revolute">
+    <parent link="dummy_10_11"/>
+    <child link="rod_11"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_11_12"/>
+
+
+  <link name="rod_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_12">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_11_yaw" type="revolute">
+    <parent link="rod_11"/>
+    <child link="dummy_11_12"/>
+    <origin xyz="0.009982 0.000279 0.000000" rpy="0.000000 0.000000 0.055304"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_11_roll" type="revolute">
+    <parent link="dummy_11_12"/>
+    <child link="rod_12"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_12_13"/>
+
+
+  <link name="rod_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_13">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_12_yaw" type="revolute">
+    <parent link="rod_12"/>
+    <child link="dummy_12_13"/>
+    <origin xyz="0.009982 0.000263 0.000000" rpy="0.000000 0.000000 0.052347"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_12_roll" type="revolute">
+    <parent link="dummy_12_13"/>
+    <child link="rod_13"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_13_14"/>
+
+
+  <link name="rod_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_14">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_13_yaw" type="revolute">
+    <parent link="rod_13"/>
+    <child link="dummy_13_14"/>
+    <origin xyz="0.009983 0.000252 0.000000" rpy="0.000000 0.000000 0.050164"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_13_roll" type="revolute">
+    <parent link="dummy_13_14"/>
+    <child link="rod_14"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_14_15"/>
+
+
+  <link name="rod_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_15">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_14_yaw" type="revolute">
+    <parent link="rod_14"/>
+    <child link="dummy_14_15"/>
+    <origin xyz="0.009983 0.000244 0.000000" rpy="0.000000 0.000000 0.048642"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_14_roll" type="revolute">
+    <parent link="dummy_14_15"/>
+    <child link="rod_15"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_15_16"/>
+
+
+  <link name="rod_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_16">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_15_yaw" type="revolute">
+    <parent link="rod_15"/>
+    <child link="dummy_15_16"/>
+    <origin xyz="0.009983 0.000239 0.000000" rpy="0.000000 0.000000 0.047706"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_15_roll" type="revolute">
+    <parent link="dummy_15_16"/>
+    <child link="rod_16"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_16_17"/>
+
+
+  <link name="rod_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_17">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_16_yaw" type="revolute">
+    <parent link="rod_16"/>
+    <child link="dummy_16_17"/>
+    <origin xyz="0.009983 0.000236 0.000000" rpy="0.000000 0.000000 0.047313"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_16_roll" type="revolute">
+    <parent link="dummy_16_17"/>
+    <child link="rod_17"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_17_18"/>
+
+
+  <link name="rod_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_18">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_17_yaw" type="revolute">
+    <parent link="rod_17"/>
+    <child link="dummy_17_18"/>
+    <origin xyz="0.009983 0.000237 0.000000" rpy="0.000000 0.000000 0.047444"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_17_roll" type="revolute">
+    <parent link="dummy_17_18"/>
+    <child link="rod_18"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_18_19"/>
+
+
+  <link name="rod_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_19">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_18_yaw" type="revolute">
+    <parent link="rod_18"/>
+    <child link="dummy_18_19"/>
+    <origin xyz="0.009983 0.000239 0.000000" rpy="0.000000 0.000000 0.048104"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_18_roll" type="revolute">
+    <parent link="dummy_18_19"/>
+    <child link="rod_19"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_19_20"/>
+
+
+  <link name="rod_20">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_20">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_19_yaw" type="revolute">
+    <parent link="rod_19"/>
+    <child link="dummy_19_20"/>
+    <origin xyz="0.009983 0.000245 0.000000" rpy="0.000000 0.000000 0.049325"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_19_roll" type="revolute">
+    <parent link="dummy_19_20"/>
+    <child link="rod_20"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_20_21"/>
+
+
+  <link name="rod_21">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_21">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_20_yaw" type="revolute">
+    <parent link="rod_20"/>
+    <child link="dummy_20_21"/>
+    <origin xyz="0.009983 0.000254 0.000000" rpy="0.000000 0.000000 0.051167"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_20_roll" type="revolute">
+    <parent link="dummy_20_21"/>
+    <child link="rod_21"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_21_22"/>
+
+
+  <link name="rod_22">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_22">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_21_yaw" type="revolute">
+    <parent link="rod_21"/>
+    <child link="dummy_21_22"/>
+    <origin xyz="0.009982 0.000266 0.000000" rpy="0.000000 0.000000 0.053720"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_21_roll" type="revolute">
+    <parent link="dummy_21_22"/>
+    <child link="rod_22"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_22_23"/>
+
+
+  <link name="rod_23">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_23">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_22_yaw" type="revolute">
+    <parent link="rod_22"/>
+    <child link="dummy_22_23"/>
+    <origin xyz="0.009981 0.000282 0.000000" rpy="0.000000 0.000000 0.057120"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_22_roll" type="revolute">
+    <parent link="dummy_22_23"/>
+    <child link="rod_23"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_23_24"/>
+
+
+  <link name="rod_24">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_24">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_23_yaw" type="revolute">
+    <parent link="rod_23"/>
+    <child link="dummy_23_24"/>
+    <origin xyz="0.009981 0.000303 0.000000" rpy="0.000000 0.000000 0.061553"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_23_roll" type="revolute">
+    <parent link="dummy_23_24"/>
+    <child link="rod_24"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_24_25"/>
+
+
+  <link name="rod_25">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_25">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_24_yaw" type="revolute">
+    <parent link="rod_24"/>
+    <child link="dummy_24_25"/>
+    <origin xyz="0.009979 0.000330 0.000000" rpy="0.000000 0.000000 0.067281"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_24_roll" type="revolute">
+    <parent link="dummy_24_25"/>
+    <child link="rod_25"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_25_26"/>
+
+
+  <link name="rod_26">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_26">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_25_yaw" type="revolute">
+    <parent link="rod_25"/>
+    <child link="dummy_25_26"/>
+    <origin xyz="0.009978 0.000366 0.000000" rpy="0.000000 0.000000 0.074652"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_25_roll" type="revolute">
+    <parent link="dummy_25_26"/>
+    <child link="rod_26"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_26_27"/>
+
+
+  <link name="rod_27">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_27">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_26_yaw" type="revolute">
+    <parent link="rod_26"/>
+    <child link="dummy_26_27"/>
+    <origin xyz="0.009975 0.000411 0.000000" rpy="0.000000 0.000000 0.084130"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_26_roll" type="revolute">
+    <parent link="dummy_26_27"/>
+    <child link="rod_27"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_27_28"/>
+
+
+  <link name="rod_28">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_28">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_27_yaw" type="revolute">
+    <parent link="rod_27"/>
+    <child link="dummy_27_28"/>
+    <origin xyz="0.009972 0.000469 0.000000" rpy="0.000000 0.000000 0.096285"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_27_roll" type="revolute">
+    <parent link="dummy_27_28"/>
+    <child link="rod_28"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_28_29"/>
+
+
+  <link name="rod_29">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_29">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_28_yaw" type="revolute">
+    <parent link="rod_28"/>
+    <child link="dummy_28_29"/>
+    <origin xyz="0.009967 0.000543 0.000000" rpy="0.000000 0.000000 0.111728"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_28_roll" type="revolute">
+    <parent link="dummy_28_29"/>
+    <child link="rod_29"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_29_30"/>
+
+
+  <link name="rod_30">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_30">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_29_yaw" type="revolute">
+    <parent link="rod_29"/>
+    <child link="dummy_29_30"/>
+    <origin xyz="0.009959 0.000635 0.000000" rpy="0.000000 0.000000 0.130858"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_29_roll" type="revolute">
+    <parent link="dummy_29_30"/>
+    <child link="rod_30"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_30_31"/>
+
+
+  <link name="rod_31">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_31">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_30_yaw" type="revolute">
+    <parent link="rod_30"/>
+    <child link="dummy_30_31"/>
+    <origin xyz="0.009949 0.000744 0.000000" rpy="0.000000 0.000000 0.153217"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_30_roll" type="revolute">
+    <parent link="dummy_30_31"/>
+    <child link="rod_31"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_31_32"/>
+
+
+  <link name="rod_32">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_32">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_31_yaw" type="revolute">
+    <parent link="rod_31"/>
+    <child link="dummy_31_32"/>
+    <origin xyz="0.009937 0.000860 0.000000" rpy="0.000000 0.000000 0.176356"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_31_roll" type="revolute">
+    <parent link="dummy_31_32"/>
+    <child link="rod_32"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_32_33"/>
+
+
+  <link name="rod_33">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_33">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_32_yaw" type="revolute">
+    <parent link="rod_32"/>
+    <child link="dummy_32_33"/>
+    <origin xyz="0.009925 0.000959 0.000000" rpy="0.000000 0.000000 0.194930"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_32_roll" type="revolute">
+    <parent link="dummy_32_33"/>
+    <child link="rod_33"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_33_34"/>
+
+
+  <link name="rod_34">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_34">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_33_yaw" type="revolute">
+    <parent link="rod_33"/>
+    <child link="dummy_33_34"/>
+    <origin xyz="0.009919 0.001006 0.000000" rpy="0.000000 0.000000 0.202214"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_33_roll" type="revolute">
+    <parent link="dummy_33_34"/>
+    <child link="rod_34"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_34_35"/>
+
+
+  <link name="rod_35">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_35">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_34_yaw" type="revolute">
+    <parent link="rod_34"/>
+    <child link="dummy_34_35"/>
+    <origin xyz="0.009923 0.000982 0.000000" rpy="0.000000 0.000000 0.194930"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_34_roll" type="revolute">
+    <parent link="dummy_34_35"/>
+    <child link="rod_35"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_35_36"/>
+
+
+  <link name="rod_36">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_36">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_35_yaw" type="revolute">
+    <parent link="rod_35"/>
+    <child link="dummy_35_36"/>
+    <origin xyz="0.009934 0.000897 0.000000" rpy="0.000000 0.000000 0.176356"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_35_roll" type="revolute">
+    <parent link="dummy_35_36"/>
+    <child link="rod_36"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_36_37"/>
+
+
+  <link name="rod_37">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_37">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_36_yaw" type="revolute">
+    <parent link="rod_36"/>
+    <child link="dummy_36_37"/>
+    <origin xyz="0.009946 0.000783 0.000000" rpy="0.000000 0.000000 0.153217"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_36_roll" type="revolute">
+    <parent link="dummy_36_37"/>
+    <child link="rod_37"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_37_38"/>
+
+
+  <link name="rod_38">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_38">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_37_yaw" type="revolute">
+    <parent link="rod_37"/>
+    <child link="dummy_37_38"/>
+    <origin xyz="0.009957 0.000670 0.000000" rpy="0.000000 0.000000 0.130858"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_37_roll" type="revolute">
+    <parent link="dummy_37_38"/>
+    <child link="rod_38"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_38_39"/>
+
+
+  <link name="rod_39">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_39">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_38_yaw" type="revolute">
+    <parent link="rod_38"/>
+    <child link="dummy_38_39"/>
+    <origin xyz="0.009965 0.000572 0.000000" rpy="0.000000 0.000000 0.111728"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_38_roll" type="revolute">
+    <parent link="dummy_38_39"/>
+    <child link="rod_39"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_39_40"/>
+
+
+  <link name="rod_40">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_40">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_39_yaw" type="revolute">
+    <parent link="rod_39"/>
+    <child link="dummy_39_40"/>
+    <origin xyz="0.009971 0.000492 0.000000" rpy="0.000000 0.000000 0.096285"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_39_roll" type="revolute">
+    <parent link="dummy_39_40"/>
+    <child link="rod_40"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_40_41"/>
+
+
+  <link name="rod_41">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_41">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_40_yaw" type="revolute">
+    <parent link="rod_40"/>
+    <child link="dummy_40_41"/>
+    <origin xyz="0.009975 0.000429 0.000000" rpy="0.000000 0.000000 0.084130"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_40_roll" type="revolute">
+    <parent link="dummy_40_41"/>
+    <child link="rod_41"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_41_42"/>
+
+
+  <link name="rod_42">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_42">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_41_yaw" type="revolute">
+    <parent link="rod_41"/>
+    <child link="dummy_41_42"/>
+    <origin xyz="0.009977 0.000380 0.000000" rpy="0.000000 0.000000 0.074652"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_41_roll" type="revolute">
+    <parent link="dummy_41_42"/>
+    <child link="rod_42"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_42_43"/>
+
+
+  <link name="rod_43">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_43">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_42_yaw" type="revolute">
+    <parent link="rod_42"/>
+    <child link="dummy_42_43"/>
+    <origin xyz="0.009979 0.000341 0.000000" rpy="0.000000 0.000000 0.067281"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_42_roll" type="revolute">
+    <parent link="dummy_42_43"/>
+    <child link="rod_43"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_43_44"/>
+
+
+  <link name="rod_44">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_44">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_43_yaw" type="revolute">
+    <parent link="rod_43"/>
+    <child link="dummy_43_44"/>
+    <origin xyz="0.009980 0.000311 0.000000" rpy="0.000000 0.000000 0.061553"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_43_roll" type="revolute">
+    <parent link="dummy_43_44"/>
+    <child link="rod_44"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_44_45"/>
+
+
+  <link name="rod_45">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_45">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_44_yaw" type="revolute">
+    <parent link="rod_44"/>
+    <child link="dummy_44_45"/>
+    <origin xyz="0.009981 0.000288 0.000000" rpy="0.000000 0.000000 0.057120"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_44_roll" type="revolute">
+    <parent link="dummy_44_45"/>
+    <child link="rod_45"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_45_46"/>
+
+
+  <link name="rod_46">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_46">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_45_yaw" type="revolute">
+    <parent link="rod_45"/>
+    <child link="dummy_45_46"/>
+    <origin xyz="0.009982 0.000271 0.000000" rpy="0.000000 0.000000 0.053720"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_45_roll" type="revolute">
+    <parent link="dummy_45_46"/>
+    <child link="rod_46"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_46_47"/>
+
+
+  <link name="rod_47">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_47">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_46_yaw" type="revolute">
+    <parent link="rod_46"/>
+    <child link="dummy_46_47"/>
+    <origin xyz="0.009982 0.000257 0.000000" rpy="0.000000 0.000000 0.051167"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_46_roll" type="revolute">
+    <parent link="dummy_46_47"/>
+    <child link="rod_47"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_47_48"/>
+
+
+  <link name="rod_48">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_48">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_47_yaw" type="revolute">
+    <parent link="rod_47"/>
+    <child link="dummy_47_48"/>
+    <origin xyz="0.009983 0.000248 0.000000" rpy="0.000000 0.000000 0.049325"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_47_roll" type="revolute">
+    <parent link="dummy_47_48"/>
+    <child link="rod_48"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_48_49"/>
+
+
+  <link name="rod_49">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_49">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_48_yaw" type="revolute">
+    <parent link="rod_48"/>
+    <child link="dummy_48_49"/>
+    <origin xyz="0.009983 0.000241 0.000000" rpy="0.000000 0.000000 0.048104"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_48_roll" type="revolute">
+    <parent link="dummy_48_49"/>
+    <child link="rod_49"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_49_50"/>
+
+
+  <link name="rod_50">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_50">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_49_yaw" type="revolute">
+    <parent link="rod_49"/>
+    <child link="dummy_49_50"/>
+    <origin xyz="0.009983 0.000237 0.000000" rpy="0.000000 0.000000 0.047444"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_49_roll" type="revolute">
+    <parent link="dummy_49_50"/>
+    <child link="rod_50"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_50_51"/>
+
+
+  <link name="rod_51">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_51">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_50_yaw" type="revolute">
+    <parent link="rod_50"/>
+    <child link="dummy_50_51"/>
+    <origin xyz="0.009983 0.000236 0.000000" rpy="0.000000 0.000000 0.047313"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_50_roll" type="revolute">
+    <parent link="dummy_50_51"/>
+    <child link="rod_51"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_51_52"/>
+
+
+  <link name="rod_52">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_52">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_51_yaw" type="revolute">
+    <parent link="rod_51"/>
+    <child link="dummy_51_52"/>
+    <origin xyz="0.009983 0.000238 0.000000" rpy="0.000000 0.000000 0.047706"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_51_roll" type="revolute">
+    <parent link="dummy_51_52"/>
+    <child link="rod_52"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_52_53"/>
+
+
+  <link name="rod_53">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_53">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_52_yaw" type="revolute">
+    <parent link="rod_52"/>
+    <child link="dummy_52_53"/>
+    <origin xyz="0.009983 0.000242 0.000000" rpy="0.000000 0.000000 0.048642"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_52_roll" type="revolute">
+    <parent link="dummy_52_53"/>
+    <child link="rod_53"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_53_54"/>
+
+
+  <link name="rod_54">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_54">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_53_yaw" type="revolute">
+    <parent link="rod_53"/>
+    <child link="dummy_53_54"/>
+    <origin xyz="0.009983 0.000249 0.000000" rpy="0.000000 0.000000 0.050164"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_53_roll" type="revolute">
+    <parent link="dummy_53_54"/>
+    <child link="rod_54"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_54_55"/>
+
+
+  <link name="rod_55">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_55">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_54_yaw" type="revolute">
+    <parent link="rod_54"/>
+    <child link="dummy_54_55"/>
+    <origin xyz="0.009982 0.000259 0.000000" rpy="0.000000 0.000000 0.052347"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_54_roll" type="revolute">
+    <parent link="dummy_54_55"/>
+    <child link="rod_55"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_55_56"/>
+
+
+  <link name="rod_56">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_56">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_55_yaw" type="revolute">
+    <parent link="rod_55"/>
+    <child link="dummy_55_56"/>
+    <origin xyz="0.009982 0.000273 0.000000" rpy="0.000000 0.000000 0.055304"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_55_roll" type="revolute">
+    <parent link="dummy_55_56"/>
+    <child link="rod_56"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_56_57"/>
+
+
+  <link name="rod_57">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_57">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_56_yaw" type="revolute">
+    <parent link="rod_56"/>
+    <child link="dummy_56_57"/>
+    <origin xyz="0.009981 0.000292 0.000000" rpy="0.000000 0.000000 0.059193"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_56_roll" type="revolute">
+    <parent link="dummy_56_57"/>
+    <child link="rod_57"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_57_58"/>
+
+
+  <link name="rod_58">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_58">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_57_yaw" type="revolute">
+    <parent link="rod_57"/>
+    <child link="dummy_57_58"/>
+    <origin xyz="0.009980 0.000316 0.000000" rpy="0.000000 0.000000 0.064236"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_57_roll" type="revolute">
+    <parent link="dummy_57_58"/>
+    <child link="rod_58"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_58_59"/>
+
+
+  <link name="rod_59">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_59">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_58_yaw" type="revolute">
+    <parent link="rod_58"/>
+    <child link="dummy_58_59"/>
+    <origin xyz="0.009979 0.000347 0.000000" rpy="0.000000 0.000000 0.070735"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_58_roll" type="revolute">
+    <parent link="dummy_58_59"/>
+    <child link="rod_59"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_59_60"/>
+
+
+  <link name="rod_60">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_60">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_59_yaw" type="revolute">
+    <parent link="rod_59"/>
+    <child link="dummy_59_60"/>
+    <origin xyz="0.009977 0.000387 0.000000" rpy="0.000000 0.000000 0.079095"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_59_roll" type="revolute">
+    <parent link="dummy_59_60"/>
+    <child link="rod_60"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_60_61"/>
+
+
+  <link name="rod_61">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_61">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_60_yaw" type="revolute">
+    <parent link="rod_60"/>
+    <child link="dummy_60_61"/>
+    <origin xyz="0.009974 0.000438 0.000000" rpy="0.000000 0.000000 0.089834"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_60_roll" type="revolute">
+    <parent link="dummy_60_61"/>
+    <child link="rod_61"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_61_62"/>
+
+
+  <link name="rod_62">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_62">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_61_yaw" type="revolute">
+    <parent link="rod_61"/>
+    <child link="dummy_61_62"/>
+    <origin xyz="0.009970 0.000504 0.000000" rpy="0.000000 0.000000 0.103561"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_61_roll" type="revolute">
+    <parent link="dummy_61_62"/>
+    <child link="rod_62"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_62_63"/>
+
+
+  <link name="rod_63">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_63">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_62_yaw" type="revolute">
+    <parent link="rod_62"/>
+    <child link="dummy_62_63"/>
+    <origin xyz="0.009964 0.000587 0.000000" rpy="0.000000 0.000000 0.120830"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_62_roll" type="revolute">
+    <parent link="dummy_62_63"/>
+    <child link="rod_63"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_63_64"/>
+
+
+  <link name="rod_64">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_64">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_63_yaw" type="revolute">
+    <parent link="rod_63"/>
+    <child link="dummy_63_64"/>
+    <origin xyz="0.009955 0.000688 0.000000" rpy="0.000000 0.000000 0.141725"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_63_roll" type="revolute">
+    <parent link="dummy_63_64"/>
+    <child link="rod_64"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_64_65"/>
+
+
+  <link name="rod_65">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_65">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_64_yaw" type="revolute">
+    <parent link="rod_64"/>
+    <child link="dummy_64_65"/>
+    <origin xyz="0.009943 0.000802 0.000000" rpy="0.000000 0.000000 0.164954"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_64_roll" type="revolute">
+    <parent link="dummy_64_65"/>
+    <child link="rod_65"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_65_66"/>
+
+
+  <link name="rod_66">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="5.2486666666666676e-08" ixy="0" ixz="0" 
+               iyy="5.8833333333333344e-08" iyz="0" 
+               izz="7.153333333333332e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_66">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.009 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_65_yaw" type="revolute">
+    <parent link="rod_65"/>
+    <child link="dummy_65_66"/>
+    <origin xyz="0.009930 0.000914 0.000000" rpy="0.000000 0.000000 0.186647"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_65_roll" type="revolute">
+    <parent link="dummy_65_66"/>
+    <child link="rod_66"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <link name="dummy_66_67"/>
+
+
+  <link name="rod_67">
+    <inertial>
+      <origin xyz="-0.00225 0 0" rpy="0 0 0"/>
+      <mass value="0.0005"/>
+      <inertia ixx="2.6243333333333338e-08" ixy="0" ixz="0" 
+               iyy="2.688541666666667e-08" iyz="0" 
+               izz="1.0454166666666666e-09"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.00225 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0045 0.0022 0.025"/>
+      </geometry>
+      <material name="mat_rod_67">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00225 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0045 0.0022 0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="joint_66_yaw" type="revolute">
+    <parent link="rod_66"/>
+    <child link="dummy_66_67"/>
+    <origin xyz="0.009921 0.000991 0.000000" rpy="0.000000 0.000000 0.200333"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+
+  <joint name="joint_66_roll" type="revolute">
+    <parent link="dummy_66_67"/>
+    <child link="rod_67"/>
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0.000000 -0.000000 0.000000"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000" velocity="100" lower="-1.57" upper="1.57"/>
+    <dynamics damping="0.2" />
+  </joint>
+
+</robot>
