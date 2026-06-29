@@ -355,6 +355,10 @@ class Example:
             num_elements=BELT_NUM_ELEMENTS,
             twisting_angle=0.0,
         )
+        
+        TOTAL_BELT_MASS = 0.022  # 22 grams in kg
+        # Calculate mass per element segment 
+        element_mass = TOTAL_BELT_MASS / BELT_NUM_ELEMENTS
 
         # Use soft elastic parameters
         rod_bodies, _rod_joints = builder.add_rod(
