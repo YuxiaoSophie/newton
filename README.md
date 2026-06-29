@@ -117,9 +117,9 @@ Previous behavior issues:
 
 Update:
 
-The full `round_belt.py` scene is now more stable. Two main issues were addressed.
+The full `round_belt.py` scene is now more stable.
 
-* 1. Use the latest Newton source to reduce cable explosion
+* Use the latest Newton source to reduce cable explosion
 
     This project now uses both:
 
@@ -139,7 +139,7 @@ The full `round_belt.py` scene is now more stable. Two main issues were addresse
 
     The important improvement is in Newton’s VBD rigid contact behavior for finite-radius objects such as cables. Previously, when a small-radius cable contacted another object while rotating, the normal contact response could act at a rotating surface anchor point. This could inject artificial kinetic energy into the simulation, making the cable suddenly jump, spin, or explode. The newer Newton source improves this contact handling by applying the normal contact response more stably for cable-like objects, reducing non-physical energy gain during contact.
 
-* 2. Use center-of-mass body frames for rod segments
+* Use center-of-mass body frames for rod segments
 
     The rod setup was also changed to use:
 
@@ -148,6 +148,8 @@ The full `round_belt.py` scene is now more stable. Two main issues were addresse
     ```
 
     This places each rod segment’s body frame at its center of mass instead of at the segment start point.
+
+Current video (Updated):
 
 #### Next plan (Updated)
 
