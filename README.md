@@ -142,7 +142,7 @@ The full `round_belt.py` scene is now more stable.
     This places each rod segment’s body frame at its center of mass instead of at the segment start point.
 
 Current video (Updated):
-[Round_Belt](media/Round_Belt_6_29.mov)
+[Round_Belt](media/round_belt_6_29.mp4)
 
 #### Next plan (Updated)
 
