@@ -103,7 +103,7 @@ The belt setup is based on the real belt dimensions:
 * Uses **48 elements**.
 * Cable radius is **0.0033 m**.
 * Full ellipse dimensions: **0.248 m × 0.168 m**
-* Mass is not manually set in the script; this still needs to be tuned if necessary.
+* Mass is 22 grams.
 
 #### Current status
 

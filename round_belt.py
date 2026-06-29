@@ -48,8 +48,7 @@ BELT_CENTER_X = -0.320
 BELT_CENTER_Y = 0.000
 BELT_CENTER_Z = TABLE_TOP_Z + BELT_RADIUS 
 BELT_NUM_ELEMENTS = 48
-
-## 22 grams
+TOTAL_BELT_MASS = 0.022  # 22 grams
 
 # Helpers
 def quat_from_rpy(roll: float, pitch: float, yaw: float) -> wp.quat:
@@ -356,7 +355,6 @@ class Example:
             twisting_angle=0.0,
         )
         
-        TOTAL_BELT_MASS = 0.022  # 22 grams in kg
         # Calculate mass per element segment 
         element_mass = TOTAL_BELT_MASS / BELT_NUM_ELEMENTS
 
