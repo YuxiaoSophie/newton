@@ -364,6 +364,7 @@ class Example:
             bend_stiffness=1.5e-1,
             bend_damping=1.0e-1,
             closed=True,
+            body_frame_origin="com",
             label="flexible_ellipse_cable",
         )
         self.belt_bodies = list(rod_bodies)
