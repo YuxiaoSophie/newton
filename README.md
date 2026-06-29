@@ -121,15 +121,7 @@ The full `round_belt.py` scene is now more stable.
 
 * Use the latest Newton source to reduce cable explosion
 
-    This project now uses both:
-
-    ```bash
-    python -m venv .venv
-    source .venv/bin/activate
-    pip install "newton[examples]"
-    ```
-
-    and the latest Newton source code:
+    This project now uses:
 
     ```bash
     git clone https://github.com/newton-physics/newton

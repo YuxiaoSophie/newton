@@ -49,6 +49,7 @@ BELT_CENTER_Y = 0.000
 BELT_CENTER_Z = TABLE_TOP_Z + BELT_RADIUS 
 BELT_NUM_ELEMENTS = 48
 
+## 22 grams
 
 # Helpers
 def quat_from_rpy(roll: float, pitch: float, yaw: float) -> wp.quat:
