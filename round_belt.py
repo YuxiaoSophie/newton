@@ -30,7 +30,9 @@ LARGE_HALF_MESH = LARGE_DIR / "large_round_pulley_half.obj"
 
 TABLE_LENGTH_X = 1.20
 TABLE_WIDTH_Y = 0.70
-TABLE_TOP_Z = 0.72
+TABLE_BOTTOM_Z = 0.0
+TABLE_HEIGHT = 0.72
+TABLE_TOP_Z = TABLE_BOTTOM_Z + TABLE_HEIGHT
 TABLE_THICKNESS = 0.04
 
 BOARD_SIZE = 0.384
@@ -168,13 +170,18 @@ def fit_table_vertices(vertices: np.ndarray) -> np.ndarray:
     v_min = v.min(axis=0)
     v_max = v.max(axis=0)
     dims = np.maximum(v_max - v_min, 1.0e-8)
-    center = 0.5 * (v_min + v_max)
+
+    center_xy = 0.5 * (v_min[:2] + v_max[:2])
     scale_x = TABLE_LENGTH_X / dims[0]
     scale_y = TABLE_WIDTH_Y / dims[1]
-    scale = min(scale_x, scale_y)
-    v = (v - center) * scale
-    v[:, 2] -= v[:, 2].max()
-    v[:, 2] += TABLE_TOP_Z
+    scale_xy = min(scale_x, scale_y)
+
+    v[:, 0] = (v[:, 0] - center_xy[0]) * scale_xy
+    v[:, 1] = (v[:, 1] - center_xy[1]) * scale_xy
+
+    z_scale = TABLE_HEIGHT / dims[2]
+    v[:, 2] = (v[:, 2] - v_min[2]) * z_scale + TABLE_BOTTOM_Z
+
     return v
 
 
@@ -212,14 +219,16 @@ def add_table(builder: newton.ModelBuilder) -> None:
     if not table_mesh_loaded:
         leg_cfg = make_visual_cfg()
         leg_hx, leg_hy = 0.025, 0.025
-        leg_hz = 0.5 * (TABLE_TOP_Z - TABLE_THICKNESS)
+        leg_height = TABLE_TOP_Z - TABLE_THICKNESS - TABLE_BOTTOM_Z
+        leg_hz = 0.5 * leg_height
+        leg_center_z = TABLE_BOTTOM_Z + leg_hz
         x_edge = 0.5 * TABLE_LENGTH_X - 0.08
         y_edge = 0.5 * TABLE_WIDTH_Y - 0.08
         for sx in (-1.0, 1.0):
             for sy in (-1.0, 1.0):
                 builder.add_shape_box(
                     body=-1,
-                    xform=tf((sx * x_edge, sy * y_edge, leg_hz)),
+                    xform=tf((sx * x_edge, sy * y_edge, leg_center_z)),
                     hx=leg_hx, hy=leg_hy, hz=leg_hz,
                     cfg=leg_cfg, color=wp.vec3(0.35, 0.20, 0.08),
                     label="fallback_table_leg",
