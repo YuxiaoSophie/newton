@@ -23,6 +23,11 @@ def parse_indices(text):
     return [int(v.strip()) for v in text.split(",") if v.strip() != ""]
 
 
+def smoothstep(x):
+    x = np.clip(x, 0.0, 1.0)
+    return x * x * (3.0 - 2.0 * x)
+
+
 def find_body_index(model, name_hint):
     labels = getattr(model, "body_label", [])
 
@@ -32,18 +37,39 @@ def find_body_index(model, name_hint):
             if name_hint in label.lower():
                 return i
 
-    keywords = [
-        "ee_link",
-        "tool0",
-        "wrist_3_link",
-    ]
-
-    for key in keywords:
+    for key in ["ee_link", "tool0", "wrist_3_link"]:
         for i, label in enumerate(labels):
             if key in label.lower():
                 return i
 
     return model.body_count - 1
+
+
+def find_gripper_driver_coords(model, arm_dofs):
+    """
+    Find only the real Robotiq driver joint coordinate(s).
+    """
+    joint_labels = getattr(model, "joint_label", [])
+    q_start = as_numpy(model.joint_q_start)
+    dof_dim = as_numpy(model.joint_dof_dim)
+
+    driver_coords = []
+
+    for j, name in enumerate(joint_labels):
+        if j < arm_dofs:
+            continue
+
+        lname = name.lower()
+        dofs = int(dof_dim[j, 0] + dof_dim[j, 1])
+
+        if dofs <= 0:
+            continue
+
+        # Only select true driver joints.
+        if "driver_joint" in lname:
+            driver_coords.append(int(q_start[j]))
+
+    return sorted(set(driver_coords))
 
 
 def print_model_tree(model):
@@ -65,17 +91,6 @@ def print_model_tree(model):
     print("=================================\n")
 
 
-@wp.kernel
-def set_gripper_target_kernel(
-    joint_target_q: wp.array2d[wp.float32],
-    gripper_indices: wp.array[wp.int32],
-    gripper_values: wp.array[wp.float32],
-):
-    i = wp.tid()
-    q_idx = gripper_indices[i]
-    joint_target_q[0, q_idx] = gripper_values[i]
-
-
 class Example:
     def __init__(self, viewer, args):
         newton.use_coord_layout_targets = True
@@ -91,7 +106,6 @@ class Example:
 
         self.arm_dofs = 6
 
-        # Build robot
         builder = newton.ModelBuilder()
         newton.solvers.SolverMuJoCo.register_custom_attributes(builder)
 
@@ -101,6 +115,7 @@ class Example:
             wp.quat_identity(),
         )
 
+        # Load robot / gripper
         if args.asset_file:
             if args.asset_type == "usd":
                 builder.add_usd(
@@ -122,7 +137,6 @@ class Example:
                 raise ValueError(f"Unknown asset type: {args.asset_type}")
 
         else:
-            # Load stock UR10 arm
             asset_path = newton.utils.download_asset("universal_robots_ur10")
             asset_file = str(asset_path / "usd" / "ur10_instanceable.usda")
 
@@ -134,27 +148,21 @@ class Example:
                 hide_collision_shapes=True,
             )
 
-            # CENTERED ROBOTIQ 2F-85 GRIPPER MOUNT
-            # For the stock UR10 USD, body 7 is usually /ur10/ee_link.
             tool_body_idx = 7
             print(f"[INFO] Attaching 2f85.xml centered to body {tool_body_idx}.")
-
             gripper_pos = wp.vec3(0.0, 0.0, 0.0)
-
-            # This keeps the gripper aligned with the UR10 tool frame.
             gripper_rot = wp.quat_from_axis_angle(
                 wp.vec3(0.0, 1.0, 0.0),
                 np.pi / 2.0,
             )
-
             gripper_offset_tf = wp.transform(gripper_pos, gripper_rot)
-
             builder.add_mjcf(
                 "2f85.xml",
                 parent_body=tool_body_idx,
                 xform=gripper_offset_tf,
             )
 
+        # Add simple support column and ground
         builder.add_shape_cylinder(
             -1,
             xform=wp.transform(wp.vec3(0.0, 0.0, height / 2.0)),
@@ -163,41 +171,115 @@ class Example:
         )
 
         builder.add_ground_plane()
-
-        # Joint gains
-        for i in range(len(builder.joint_target_ke)):
-            if i < self.arm_dofs:
-                builder.joint_target_ke[i] = 1000.0
-                builder.joint_target_kd[i] = 100.0
-            else:
-                # Strong but not excessive gripper tracking.
-                # Too high can increase jitter/penetration during contact.
-                builder.joint_target_ke[i] = 200.0
-                builder.joint_target_kd[i] = 15.0
-
-            builder.joint_target_mode[i] = int(JointTargetMode.POSITION)
-
         self.model = builder.finalize()
 
         if args.print_model:
             print_model_tree(self.model)
 
-        # Initial arm pose
-        initial_joints = np.zeros(self.model.joint_coord_count, dtype=np.float32)
+        self.n_coords = self.model.joint_coord_count
 
+        # Find gripper driver coordinate(s)
+        gripper_args = args.gripper_indices
+
+        if not gripper_args and not args.asset_file:
+            driver_coords = find_gripper_driver_coords(self.model, self.arm_dofs)
+
+            if driver_coords:
+                gripper_args = ",".join(map(str, driver_coords))
+
+        self.gripper_coord_indices = parse_indices(gripper_args)
+
+        print(
+            "[INFO] Actively driving ONLY gripper driver coordinate indices: "
+            f"{self.gripper_coord_indices}"
+        )
+
+        if len(self.gripper_coord_indices) == 0:
+            print(
+                "[WARNING] No gripper driver joints were found. "
+                "Run with --print-model and pass the real driver q-index using "
+                "--gripper-indices."
+            )
+
+        # Compute open / closed values from limits
+        lower_np = as_numpy(self.model.joint_limit_lower)
+        upper_np = as_numpy(self.model.joint_limit_upper)
+
+        self.gripper_open_values = []
+        self.gripper_closed_values = []
+
+        limit_margin = 0.005
+
+        for q_idx in self.gripper_coord_indices:
+            lo = float(lower_np[q_idx])
+            hi = float(upper_np[q_idx])
+
+            if np.isfinite(lo) and np.isfinite(hi) and hi > lo:
+                open_q = lo + limit_margin
+                closed_q = hi - limit_margin
+            else:
+                open_q = 0.0
+                closed_q = float(args.gripper_closed)
+
+            self.gripper_open_values.append(open_q)
+            self.gripper_closed_values.append(closed_q)
+
+        print(f"[INFO] Gripper open targets:   {self.gripper_open_values}")
+        print(f"[INFO] Gripper closed targets: {self.gripper_closed_values}")
+
+        # Static initial pose: arm pose + open gripper
+        initial_joints = np.zeros(self.n_coords, dtype=np.float32)
+
+        # Arm pose
         initial_joints[0] = 0.0
-        initial_joints[1] = -np.pi / 2.0
-        initial_joints[2] = np.pi / 2.0
-        initial_joints[3] = -np.pi / 2.0
-        initial_joints[4] = -np.pi / 2.0
+        initial_joints[1] = -1.35
+        initial_joints[2] = 1.75
+        initial_joints[3] = -1.95
+        initial_joints[4] = -1.57
         initial_joints[5] = 0.0
 
+        # Start with gripper fully open
+        for q_idx, open_q in zip(
+            self.gripper_coord_indices,
+            self.gripper_open_values,
+        ):
+            initial_joints[q_idx] = open_q
+
+        self.base_targets_np = initial_joints.copy()
+
         self.model.joint_q.assign(initial_joints)
+        self.model.joint_qd.zero_()
 
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()
         self.control = self.model.control()
         self.contacts = self.model.contacts()
+
+        # Position controller gains
+        ke_np = self.model.joint_target_ke.numpy()
+        kd_np = self.model.joint_target_kd.numpy()
+        mode_np = self.model.joint_target_mode.numpy()
+
+        for i in range(len(ke_np)):
+            ke_np[i] = 0.0
+            kd_np[i] = 0.0
+            mode_np[i] = int(JointTargetMode.NONE)
+
+        # Hold arm joints fixed
+        for i in range(self.arm_dofs):
+            ke_np[i] = 1000.0
+            kd_np[i] = 100.0
+            mode_np[i] = int(JointTargetMode.POSITION)
+
+        # Drive only the gripper driver coordinate(s)
+        for q_idx in self.gripper_coord_indices:
+            ke_np[q_idx] = 200.0
+            kd_np[q_idx] = 15.0
+            mode_np[q_idx] = int(JointTargetMode.POSITION)
+
+        self.model.joint_target_ke.assign(ke_np)
+        self.model.joint_target_kd.assign(kd_np)
+        self.model.joint_target_mode.assign(mode_np)
 
         self.solver = newton.solvers.SolverMuJoCo(
             self.model,
@@ -213,212 +295,39 @@ class Example:
             self.state_0,
         )
 
-        # End-effector IK target
-        self.ee_index = find_body_index(self.model, args.ee_body)
-
-        print(f"[INFO] IK end-effector body index: {self.ee_index}")
-        if hasattr(self.model, "body_label"):
-            print(f"[INFO] IK end-effector body label: {self.model.body_label[self.ee_index]}")
-
-        body_q_np = self.state_0.body_q.numpy()
-        ee_tf = wp.transform(*body_q_np[self.ee_index])
-        ee_pos = wp.transform_get_translation(ee_tf)
-        ee_rot = wp.transform_get_rotation(ee_tf)
-
-        self.ee_pos_target = wp.array(
-            [ee_pos],
-            dtype=wp.vec3,
-            device=self.device,
-        )
-
-        self.ee_rot_target = wp.array(
-            [quat_to_vec4(ee_rot)],
-            dtype=wp.vec4,
-            device=self.device,
-        )
-
-        self.pos_obj = ik.IKObjectivePosition(
-            link_index=self.ee_index,
-            link_offset=wp.vec3(0.0, 0.0, 0.0),
-            target_positions=self.ee_pos_target,
-        )
-
-        self.rot_obj = ik.IKObjectiveRotation(
-            link_index=self.ee_index,
-            link_offset_rotation=wp.quat_identity(),
-            target_rotations=self.ee_rot_target,
-        )
-
-        self.joint_limit_obj = ik.IKObjectiveJointLimit(
-            joint_limit_lower=self.model.joint_limit_lower,
-            joint_limit_upper=self.model.joint_limit_upper,
-            weight=10.0,
-        )
-
-        self.n_coords = self.model.joint_coord_count
-        self.joint_q_ik = wp.clone(
-            self.model.joint_q.reshape((1, self.n_coords))
-        )
-
-        self.ik_solver = ik.IKSolver(
-            model=self.model,
-            n_problems=1,
-            objectives=[
-                self.pos_obj,
-                self.rot_obj,
-                self.joint_limit_obj,
-            ],
-            lambda_initial=0.1,
-            jacobian_mode=ik.IKJacobianType.ANALYTIC,
-        )
-
-        self.ik_iters = 32
-
-        # Gripper joint discovery
-        gripper_args = args.gripper_indices
-
-        if not gripper_args and not args.asset_file:
-            driver_indices = []
-            fallback_finger_indices = []
-
-            joint_labels = getattr(self.model, "joint_label", [])
-            q_start = as_numpy(self.model.joint_q_start)
-
-            for j, name in enumerate(joint_labels):
-                lname = name.lower()
-
-                # Prefer actual active driver joints.
-                if "driver_joint" in lname:
-                    driver_indices.append(int(q_start[j]))
-
-                # Fallback only. Avoid driving every passive internal linkage.
-                elif lname.endswith("finger_joint") or "/finger_joint" in lname:
-                    fallback_finger_indices.append(int(q_start[j]))
-
-            if driver_indices:
-                g_indices = driver_indices
-            else:
-                g_indices = fallback_finger_indices
-
-            if g_indices:
-                gripper_args = ",".join(map(str, sorted(list(set(g_indices)))))
-
-        self.gripper_coord_indices = parse_indices(gripper_args)
-
-        print(f"[INFO] Driving gripper coordinate indices: {self.gripper_coord_indices}")
-
-        self.gripper_indices_wp = wp.array(
-            self.gripper_coord_indices,
-            dtype=wp.int32,
-            device=self.device,
-        )
-
-        # Safe full open / full close targets
-        lower_np = as_numpy(self.model.joint_limit_lower)
-        upper_np = as_numpy(self.model.joint_limit_upper)
-
-        self.gripper_open_values = []
-        self.gripper_closed_values = []
-
-        limit_margin = 1e-4
-
-        for q_idx in self.gripper_coord_indices:
-            lo = float(lower_np[q_idx])
-            hi = float(upper_np[q_idx])
-
-            if np.isfinite(lo) and np.isfinite(hi) and hi > lo:
-                open_q = lo + limit_margin
-                closed_q = hi - limit_margin
-            else:
-                # Fallback only if the gripper joint limits are missing.
-                open_q = float(args.gripper_open)
-                closed_q = float(args.gripper_closed)
-
-            self.gripper_open_values.append(open_q)
-            self.gripper_closed_values.append(closed_q)
-
-        print(f"[INFO] Gripper open targets:   {self.gripper_open_values}")
-        print(f"[INFO] Gripper closed targets: {self.gripper_closed_values}")
-
-        self.gripper_open_values_wp = wp.array(
-            self.gripper_open_values,
-            dtype=wp.float32,
-            device=self.device,
-        )
-
-        self.gripper_closed_values_wp = wp.array(
-            self.gripper_closed_values,
-            dtype=wp.float32,
-            device=self.device,
-        )
-
-        self.gripper_is_closed = False
-
         self.joint_target_q_view = self.control.joint_target_q.reshape(
             (1, self.n_coords)
         )
 
-    def set_end_effector_target(self, pos, quat_xyzw):
-        pos_arr = wp.array(
-            [wp.vec3(*pos)],
-            dtype=wp.vec3,
-            device=self.device,
-        )
+        # Initial control target equals initial pose
+        wp.copy(self.control.joint_target_q, self.model.joint_q)
 
-        rot_arr = wp.array(
-            [wp.vec4(*quat_xyzw)],
-            dtype=wp.vec4,
-            device=self.device,
-        )
+        self.ee_index = find_body_index(self.model, args.ee_body)
 
-        self.ee_pos_target = pos_arr
-        self.ee_rot_target = rot_arr
+    def solve_static_targets(self):
+        targets = self.base_targets_np.copy()
 
-        self.pos_obj.set_target_positions(self.ee_pos_target)
-        self.rot_obj.set_target_rotations(self.ee_rot_target)
+        cycle_period = 2.0
+        t = (self.sim_time % cycle_period) / cycle_period
 
-    def open_gripper(self):
-        self.gripper_is_closed = False
+        if t < 0.5:
+            # Open to closed
+            alpha = smoothstep(t / 0.5)
+        else:
+            # Closed back to open
+            alpha = smoothstep(1.0 - ((t - 0.5) / 0.5))
 
-    def close_gripper(self):
-        self.gripper_is_closed = True
+        for q_idx, open_q, closed_q in zip(
+            self.gripper_coord_indices,
+            self.gripper_open_values,
+            self.gripper_closed_values,
+        ):
+            targets[q_idx] = open_q + alpha * (closed_q - open_q)
 
-    def solve_ik_and_set_targets(self):
-        self.ik_solver.reset()
-
-        self.ik_solver.step(
-            self.joint_q_ik,
-            self.joint_q_ik,
-            iterations=self.ik_iters,
-        )
-
-        # Drive only the UR10 arm joints from IK.
-        wp.copy(
-            dest=self.joint_target_q_view[:, : self.arm_dofs],
-            src=self.joint_q_ik[:, : self.arm_dofs],
-        )
-
-        # Drive gripper independently using safe open/closed joint limits.
-        if len(self.gripper_coord_indices) > 0:
-            if self.gripper_is_closed:
-                target_values = self.gripper_closed_values_wp
-            else:
-                target_values = self.gripper_open_values_wp
-
-            wp.launch(
-                set_gripper_target_kernel,
-                dim=len(self.gripper_coord_indices),
-                inputs=[
-                    self.joint_target_q_view,
-                    self.gripper_indices_wp,
-                    target_values,
-                ],
-                device=self.device,
-            )
+        self.joint_target_q_view.assign(targets.reshape(1, -1))
 
     def simulate(self):
-        self.solve_ik_and_set_targets()
-
+        self.solve_static_targets()
         self.model.collide(self.state_0, self.contacts)
 
         for _ in range(self.sim_substeps):
@@ -436,31 +345,6 @@ class Example:
             self.state_0, self.state_1 = self.state_1, self.state_0
 
     def step(self):
-        # Circular end-effector motion
-        center = np.array([0.55, 0.0, 1.25])
-        radius = 0.12
-
-        target_pos = np.array(
-            [
-                center[0] + radius * np.cos(self.sim_time),
-                center[1] + radius * np.sin(self.sim_time),
-                center[2],
-            ],
-            dtype=np.float32,
-        )
-
-        target_quat_xyzw = (0.0, 0.7071, 0.0, 0.7071)
-
-        self.set_end_effector_target(
-            target_pos,
-            target_quat_xyzw,
-        )
-
-        if int(self.sim_time) % 4 < 2:
-            self.open_gripper()
-        else:
-            self.close_gripper()
-
         self.simulate()
         self.sim_time += self.frame_dt
 
@@ -484,16 +368,15 @@ class Example:
             default="usd",
             choices=["usd", "urdf"],
         )
-
         parser.add_argument("--ee-body", type=str, default="ee_link")
 
-        # Leave empty for automatic gripper driver-joint discovery.
+        # Leave blank for auto-detection.
+        # Or manually pass only the real driver coordinate index, for example:
+        # --gripper-indices 6
+        # or if the MJCF has two real driver coordinates:
+        # --gripper-indices 6,10
         parser.add_argument("--gripper-indices", type=str, default="")
-
-        # These are only fallback values if the MJCF joint limits are unavailable.
-        parser.add_argument("--gripper-open", type=float, default=0.0)
         parser.add_argument("--gripper-closed", type=float, default=0.8)
-
         parser.add_argument("--print-model", action="store_true")
 
         return parser
